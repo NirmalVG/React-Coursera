@@ -10,6 +10,14 @@ class DishDetail extends Component {
         };
     }
 
+    componentDidMount() {
+        console.log("DishDetail Component componentDidMount is invoked");
+    }
+
+    componentDidUpdate() {
+        console.log("DishDetail Component componentDidUpdate is invoked");
+    }
+
     renderDish(dish) {
         if (dish != null) {
             return (
@@ -51,6 +59,7 @@ class DishDetail extends Component {
                 </li>
             );
         });
+        console.log("DishDetail Component render is invoked");
         return (
             <div className="col-12 col-md-5 m-1">
                 <h4> Comments </h4>
