@@ -30,7 +30,6 @@ const Menu = (props) => {
             </div>
         );
     });
-    console.log("Menu Component render is invoked");
 
     return (
         <div className="container">

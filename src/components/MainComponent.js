@@ -11,10 +11,10 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
     return {
-        dishes: state.dishes,
         comments: state.comments,
-        promotions: state.promotions,
+        dishes: state.dishes,
         leaders: state.leaders,
+        promotions: state.promotions,
     };
 };
 
@@ -67,7 +67,7 @@ class Main extends Component {
                     <Route
                         exact
                         path="/menu"
-                        component={() => <Menu dishes={this.state.dishes} />}
+                        component={() => <Menu dishes={this.props.dishes} />}
                     />
                     <Route path="/menu/:dishId" component={DishWithId} />
                     <Route exact path="/contactus" component={Contact} />
