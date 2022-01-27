@@ -19,7 +19,7 @@ import {
     Row,
     Col,
 } from "reactstrap";
-
+import { Loading } from "./LoadingComponent";
 import { Control, LocalForm, Errors } from "react-redux-form";
 
 const required = (val) => val && val.length;
@@ -226,10 +226,26 @@ function RenderComments({ comments, addComment, dishId }) {
 
 const DishDetail = (props) => {
     const dish = props.dish;
-
-    if (dish == null) {
-        return <div></div>;
-    }
+    if (props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        );
+    } else if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    } else if (props.dish != null)
+        if (dish == null) {
+            return <div></div>;
+        }
 
     return (
         <div className="container">
