@@ -4,9 +4,9 @@ import {
     Breadcrumb,
     BreadcrumbItem,
     Button,
-    Row,
-    Col,
     Label,
+    Col,
+    Row,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, Form, Errors } from "react-redux-form";
@@ -21,13 +21,19 @@ const validEmail = (val) =>
 class Contact extends Component {
     constructor(props) {
         super(props);
-
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
+        this.props.postFeedback(
+            values.firstname,
+            values.lastname,
+            values.telnum,
+            values.email,
+            values.agree,
+            values.contactType,
+            values.message
+        );
         this.props.resetFeedbackForm();
     }
 
@@ -41,9 +47,8 @@ class Contact extends Component {
                         </BreadcrumbItem>
                         <BreadcrumbItem active>Contact Us</BreadcrumbItem>
                     </Breadcrumb>
-
                     <div className="col-12">
-                        <h3> Contact Us</h3>
+                        <h3>Contact Us</h3>
                         <hr />
                     </div>
                 </div>
@@ -83,9 +88,9 @@ class Contact extends Component {
                                 <i className="fa fa-phone"></i> Call
                             </a>
                             <a
-                                href="www.skype.com"
                                 role="button"
                                 className="btn btn-info"
+                                href="www.skype.com"
                             >
                                 <i className="fa fa-skype"></i> Skype
                             </a>
@@ -101,15 +106,16 @@ class Contact extends Component {
                 </div>
                 <div className="row row-content">
                     <div className="col-12">
-                        <h3>Send us your Feedback</h3>
+                        <h3> Send us your feedback</h3>
                     </div>
                     <div className="col-12 col-md-9">
                         <Form
                             model="feedback"
                             onSubmit={(values) => this.handleSubmit(values)}
+                            resetOnSubmit={true}
                         >
                             <Row className="form-group">
-                                <Label htmlFor="firstname" md={2}>
+                                <Label htmlFor="firstName" md={2}>
                                     First Name
                                 </Label>
                                 <Col md={10}>
@@ -132,11 +138,11 @@ class Contact extends Component {
                                         messages={{
                                             required: "Required",
                                             minLength:
-                                                "Must be greater than 2 characters",
+                                                "Must be greater that 2 characters",
                                             maxLength:
                                                 "Must be 15 characters or less",
                                         }}
-                                    />
+                                    ></Errors>
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -239,15 +245,18 @@ class Contact extends Component {
                                                 name="agree"
                                                 className="form-check-input"
                                             />{" "}
-                                            <strong>May we contact you?</strong>
+                                            <strong>
+                                                May we contact you?{" "}
+                                            </strong>
                                         </Label>
                                     </div>
                                 </Col>
+
                                 <Col md={{ size: 3, offset: 1 }}>
                                     <Control.select
                                         model=".contactType"
-                                        name="contactType"
                                         className="form-control"
+                                        name="contactType"
                                     >
                                         <option>Tel.</option>
                                         <option>Email</option>
